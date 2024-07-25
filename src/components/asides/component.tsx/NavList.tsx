@@ -1,5 +1,5 @@
-import { NavItem } from "../../types/navItem";
-import NavListItem from "./NavListItem";
+import { NavItem } from "../../../types/navItem";
+import NavListItem from "../../utilities/ListItem";
 
 export const NavList: React.FC = () => {
   const navItems: NavItem[] = [

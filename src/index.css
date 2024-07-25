@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply min-h-screen box-border; 
+  @apply min-h-screen grid ; 
 }
 #root {
   @apply w-screen h-screen flex ;
