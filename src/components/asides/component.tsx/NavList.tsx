@@ -11,7 +11,7 @@ export const NavList: React.FC = () => {
   ];
 
   return (
-    <ul className="flex-grow flex flex-col gap-8">
+    <ul className="flex-grow flex flex-col">
       {navItems.map((item, index) => (
         <NavListItem key={index} icon={item.icon} label={item.label} />
       ))}
