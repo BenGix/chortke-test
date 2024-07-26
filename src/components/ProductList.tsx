@@ -1,5 +1,4 @@
-import React from "react";
-import { useProducts } from "../hooks/useProducts";
+import { useProducts } from "../hooks/useFetchProducts";
 import { ProductCards } from "./utilities/cards/ProductCards";
 import { MaterialSymbol } from "react-material-symbols";
 
@@ -11,7 +10,7 @@ export const ProductList = ({ toggleAddProduct }: toggleAddProduct) => {
   const { products, loading, error } = useProducts();
 
   return (
-    <div className="grid grid-cols-2 flex-grow grid-flow-row  lg:grid-cols-3 2xl:grid-cols-5 overflow-y-auto px-2 py-4 gap-8 ">
+    <div className="grid grid-cols-2  grid-flow-row  lg:grid-cols-3 2xl:grid-cols-5 overflow-y-auto px-2 py-4 gap-8 ">
       {!error &&
         !loading &&
         products.map((product) => (
@@ -21,7 +20,7 @@ export const ProductList = ({ toggleAddProduct }: toggleAddProduct) => {
         data-drawer-target="add-sidebar"
         data-drawer-toggle="add-sidebar"
         aria-controls="add-sidebar"
-        className="flex flex-col justify-center items-center border border-gray-300 rounded-lg "
+        className="flex flex-col justify-center items-center min-h-72 border border-gray-300 rounded-lg "
         onClick={toggleAddProduct}
       >
         <MaterialSymbol icon="add" />

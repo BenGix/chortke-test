@@ -1,57 +1,24 @@
-// src/mocks/handlers.js
 import { http, HttpResponse } from "msw";
-
-// Mock data for product cards
-const productData = [
-  {
-    id: 1,
-    name: "Shrimp Burger",
-    weight: "350g",
-    description: "wheat bun, pickles, crispy shrimp, seafood sauce",
-    price: "$20",
-    imageUrl:
-      "https://www.burgerandsauce.com/wp-content/uploads/2021/02/burger-and-suace-chicken-burger-3000px-2.1-1024x1024.png",
-  },
-  {
-    id: 2,
-    name: "Shrimp Burger",
-    weight: "350g",
-    description: "wheat bun, pickles, crispy shrimp, seafood sauce",
-    price: "$20",
-    imageUrl:
-      "https://www.burgerandsauce.com/wp-content/uploads/2021/02/burger-and-suace-chicken-burger-3000px-2.1-1024x1024.png",
-  },
-  {
-    id: 3,
-    name: "Shrimp Burger",
-    weight: "350g",
-    description: "wheat bun, pickles, crispy shrimp, seafood sauce",
-    price: "$20",
-    imageUrl:
-      "https://www.burgerandsauce.com/wp-content/uploads/2021/02/burger-and-suace-chicken-burger-3000px-2.1-1024x1024.png",
-  },
-  {
-    id: 4,
-    name: "Shrimp Burger",
-    weight: "350g",
-    description: "wheat bun, pickles, crispy shrimp, seafood sauce",
-    price: "$20",
-    imageUrl:
-      "https://www.burgerandsauce.com/wp-content/uploads/2021/02/burger-and-suace-chicken-burger-3000px-2.1-1024x1024.png",
-  },
-  {
-    id: 5,
-    name: "Shrimp Burger",
-    weight: "350g",
-    description: "wheat bun, pickles, crispy shrimp, seafood sauce",
-    price: "$20",
-    imageUrl:
-      "https://www.burgerandsauce.com/wp-content/uploads/2021/02/burger-and-suace-chicken-burger-3000px-2.1-1024x1024.png",
-  },
-];
+import type { Product } from "../types/product";
+import productData from "../data/products.json"; // Adjust the path as needed
 
 export const handlers = [
   http.get("/api/products", () => {
     return HttpResponse.json(productData);
+  }),
+
+  http.post("/api/products", async ({ request }) => {
+    const newProduct = (await request.json()) as Omit<Product, "id">;
+
+    const id = productData.length
+      ? Math.max(...productData.map((p) => p.id)) + 1
+      : 1;
+
+    const productToAdd: Product = { ...newProduct, id };
+
+    productData.push(productToAdd);
+    console.log(productToAdd);
+    console.log(productData);
+    return HttpResponse.json(productToAdd, { status: 201 });
   }),
 ];

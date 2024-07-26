@@ -11,7 +11,9 @@ export const ProductCards: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="relative min-w-38 flex flex-col items-center justify-center rounded-lg px-4 bg-white text-center">
       <div className="absolute right-4 top-4">
-        <MaterialSymbol size={20} icon="eco" fill color="#57b66c" />
+        {product.vegan == true && (
+          <MaterialSymbol size={20} icon="eco" fill color="#57b66c" />
+        )}
       </div>
       <img
         src={product.imageUrl}

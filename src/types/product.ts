@@ -5,5 +5,5 @@ export interface Product {
   description: string;
   price: string;
   imageUrl: string;
+  vegan: boolean;
 }
-

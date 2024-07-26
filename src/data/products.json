@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "name": "Shrimp Burger",
+    "weight": "350g",
+    "description": "wheat bun, pickles, crispy shrimp, seafood sauce",
+    "vegan": false,
+    "price": "$20",
+    "imageUrl": "https://www.burgerandsauce.com/wp-content/uploads/2021/02/burger-and-suace-chicken-burger-3000px-2.1-1024x1024.png"
+  }
+]
