@@ -1,4 +1,3 @@
-import React from "react";
 import { MaterialSymbol } from "react-material-symbols";
 
 export const SearchBar = () => {

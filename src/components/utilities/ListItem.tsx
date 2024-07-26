@@ -1,4 +1,3 @@
-import React from "react";
 import { MaterialSymbol, SymbolCodepoints } from "react-material-symbols";
 
 interface NavListItemProps {
