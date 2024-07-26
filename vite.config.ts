@@ -1,7 +1,14 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-})
+  server: {
+    open: true,
+  },
+  build: {
+    rollupOptions: {
+      input: "/mockServiceWorker.js", // Ensure this is correctly set
+    },
+  },
+});

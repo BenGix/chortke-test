@@ -5,15 +5,16 @@ import { Aside } from "./components/asides/Aside";
 import { SearchBar } from "./components/utilities/SearchBar";
 import { MaterialSymbol } from "react-material-symbols";
 import { FilterList } from "./components/filters/FilterList";
-import { ProductCards } from "./components/utilities/cards/ProductCards";
 import { useState } from "react";
 import { Overlay } from "./components/utilities/DarkOverlay";
+import { ProductList } from "./components/ProductList";
 
 function App() {
   const [isExpanded, setIsExpanded] = useState(false);
   const toggleAddProduct = () => {
     setIsExpanded(!isExpanded);
   };
+
   return (
     <>
       <Aside />
@@ -26,23 +27,7 @@ function App() {
           <MaterialSymbol icon={"more_vert"} size={28} fill color="#000" />
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 overflow-y-auto px-2 py-4 gap-8 ">
-          <ProductCards />
-
-          <button
-            data-drawer-target="add-sidebar"
-            data-drawer-toggle="add-sidebar"
-            aria-controls="add-sidebar"
-            className="flex flex-col justify-center items-center border border-gray-300 rounded-lg "
-            onClick={toggleAddProduct}
-          >
-            <MaterialSymbol icon="add" />
-            <p className="text-xl font-bold text-wrap">
-              Add new <br />
-              product
-            </p>
-          </button>
-        </div>
+        <ProductList toggleAddProduct={toggleAddProduct} />
       </main>
 
       {isExpanded && <Overlay toggleAddProduct={toggleAddProduct} />}
@@ -54,14 +39,16 @@ function App() {
         }`}
       >
         <div className="w-full flex justify-between">
-          <h2>Add new product</h2>{" "}
+          <h2>Add new product</h2>
+
           <button onClick={toggleAddProduct}>
             <MaterialSymbol icon={"close"} size={24} color="#000" />
           </button>
         </div>
+
         <form className=" h-full w-full flex flex-col justify-between">
           <div className="grid gap-6">
-            <div >
+            <div>
               <label
                 htmlFor="product-name"
                 className="block mb-2 text-sm font-medium text-gray-900 "
@@ -144,7 +131,7 @@ function App() {
               </div>
             </div>
 
-            <div >
+            <div>
               <label
                 htmlFor="product-name"
                 className="block mb-2 text-sm font-medium text-gray-900 "

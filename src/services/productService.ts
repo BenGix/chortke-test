@@ -1,15 +1,7 @@
 // src/services/productService.ts
 
 import axios from "axios";
-
-export interface Product {
-  id: number;
-  name: string;
-  weight: string;
-  description: string;
-  price: string;
-  imageUrl: string;
-}
+import type { Product } from "../types/product";
 
 // Function to fetch products using axios
 export const fetchProducts = async (): Promise<Product[]> => {
