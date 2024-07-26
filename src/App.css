@@ -1,7 +1,7 @@
 @import "material-symbols";
 
 div:has(div) {
-  @apply flex;
+  @apply flex w-full;
 }
 main {
   @apply flex flex-col flex-grow p-8 gap-8 overflow-auto bg-light text-dark transition-all duration-300;
@@ -9,7 +9,6 @@ main {
 .dark main {
   @apply bg-dark text-white;
 }
-
 aside {
   @apply relative z-50 min-w-fit flex flex-col p-6 gap-6 bg-white;
 }
