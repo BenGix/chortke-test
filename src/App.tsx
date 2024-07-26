@@ -1,3 +1,5 @@
+// src/App.tsx
+
 import "./App.css";
 import "react-material-symbols/rounded";
 import { useState } from "react";
@@ -8,6 +10,9 @@ import { FilterList } from "./components/filters/FilterList";
 import { Overlay } from "./components/utilities/DarkOverlay";
 import { ProductList } from "./components/ProductList";
 import { AddProductForm } from "./components/forms/AddProductForm";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTheme } from "./redux/themeSlice";
+import { RootState } from "./redux/store"; // Import RootState
 
 function App() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -21,8 +26,15 @@ function App() {
     ? `expanded-${Date.now()}`
     : `collapsed-${Date.now()}`;
 
+  const dispatch = useDispatch();
+  const theme = useSelector((state: RootState) => state.theme.theme); // Use RootState here
+
+  const handleThemeToggle = () => {
+    dispatch(toggleTheme());
+  };
+
   return (
-    <>
+    <div className={theme}>
       <Aside />
       <main>
         <SearchBar />
@@ -30,7 +42,9 @@ function App() {
         <div className="w-full flex justify-between items-center rounded-xl ps-12 pe-8 bg-white ">
           <FilterList filter={filter} setFilter={setFilter} />
 
-          <MaterialSymbol icon={"more_vert"} size={28} fill color="#000" />
+          <button onClick={handleThemeToggle}>
+            Toggle to {theme === "light" ? "Dark" : "Light"} Theme
+          </button>
         </div>
 
         <ProductList
@@ -57,7 +71,7 @@ function App() {
         </div>
         <AddProductForm toggleAddProduct={toggleAddProduct} />
       </aside>
-    </>
+    </div>
   );
 }
 

@@ -18,7 +18,7 @@ const ListItem: React.FC<NavListItemProps> = ({
       className={`flex items-center gap-2 cursor-pointer py-6 text-dark  ${
         isActive ? "border-b border-gray-950" : "text-gray-800"
       }`}
-      onClick={onClick} // Handle click events
+      onClick={onClick}
     >
       {icon && <MaterialSymbol icon={icon} size={24} color="#313131" />}
       <span className="flex-grow">{label}</span>

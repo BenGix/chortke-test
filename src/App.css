@@ -10,3 +10,7 @@ main {
 aside {
   @apply relative z-50 min-w-fit flex flex-col p-6 gap-6 bg-white;
 }
+
+div:has(div) {
+  @apply flex;
+}

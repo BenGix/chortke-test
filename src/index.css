@@ -5,6 +5,3 @@
 body {
   @apply min-h-screen grid;
 }
-#root {
-  @apply w-screen h-screen flex;
-}
