@@ -12,7 +12,8 @@ export default {
       },
       backgroundColor: {
         light: "#f5f5f5",
-        dark: "#313131",
+        dark: "#1f1f1f",
+        darker: "#09090b",
       },
       boxShadow: {},
     },

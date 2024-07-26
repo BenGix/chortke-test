@@ -1,4 +1,7 @@
+import React from "react";
 import { MaterialSymbol, SymbolCodepoints } from "react-material-symbols";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store"; // Import RootState
 
 interface NavListItemProps {
   icon?: SymbolCodepoints; // Expect an icon component as a prop
@@ -13,15 +16,22 @@ const ListItem: React.FC<NavListItemProps> = ({
   onClick,
   isActive,
 }) => {
+  // Access the current theme from the Redux store
+  const theme = useSelector((state: RootState) => state.theme.theme);
+
+  // Determine colors based on theme
+  const iconColor = theme === "dark" ? "#22c55e" : "#313131";
+  const Color = theme === "dark" ? "#FFFFFF" : "#313131";
+
   return (
     <li
-      className={`flex items-center gap-2 cursor-pointer py-6 text-dark  ${
-        isActive ? "border-b border-gray-950" : "text-gray-800"
+      className={`flex items-center gap-2 cursor-pointer py-6 ${
+        isActive ? "border-b border-gray-950" : ""
       }`}
       onClick={onClick}
     >
-      {icon && <MaterialSymbol icon={icon} size={24} color="#313131" />}
-      <span className="flex-grow">{label}</span>
+      {icon && <MaterialSymbol icon={icon} size={24} color={iconColor} />}
+      <span className={`flex-grow text-[${Color}]`}>{label}</span>
     </li>
   );
 };

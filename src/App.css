@@ -7,8 +7,40 @@ main {
   @apply flex flex-col flex-grow p-8 gap-8 overflow-auto bg-light text-dark transition-all duration-300;
 }
 .dark main {
+  @apply bg-darker text-white;
+}
+
+aside {
+  @apply relative z-50 min-w-fit flex flex-col p-6 gap-6 bg-white transition-all duration-300;
+}
+.dark aside {
   @apply bg-dark text-white;
 }
-aside {
-  @apply relative z-50 min-w-fit flex flex-col p-6 gap-6 bg-white;
+
+header {
+  @apply w-full flex justify-between items-center rounded-xl ps-12 pe-8 bg-white transition-all duration-300;
+}
+
+.dark header {
+  @apply bg-dark;
+}
+
+.card {
+  @apply relative flex flex-col items-center justify-center rounded-lg px-4 bg-white text-center transition-all duration-300;
+}
+
+.dark .card {
+  @apply bg-dark;
+}
+
+input {
+  @apply text-sm rounded-lg  block w-full p-4;
+
+  &.bordered {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2;
+  }
+}
+
+textarea {
+  @apply block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300;
 }

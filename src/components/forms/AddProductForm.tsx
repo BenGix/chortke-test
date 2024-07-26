@@ -18,11 +18,9 @@ type AddProductProps = {
 };
 
 export function AddProductForm({ toggleAddProduct }: AddProductProps) {
-  // Initialize state with the form fields including imageUrl
   const [formState, setFormState] = useState(initialFormState);
   const { handleAddProduct, error } = useAddProduct();
 
-  // Handle input changes including imageUrl
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -73,26 +71,23 @@ export function AddProductForm({ toggleAddProduct }: AddProductProps) {
     >
       <div className="grid gap-6">
         <div>
-          <label
-            htmlFor="name"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
+          <label htmlFor="name" className="block mb-2 text-sm font-medium ">
             Name of the product
           </label>
           <input
+            className="bordered"
             type="text"
             id="name"
             name="name"
             value={formState.name}
             onChange={handleChange}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             required
           />
         </div>
         <div>
           <label
             htmlFor="ingredients"
-            className="block mb-2 text-sm font-medium text-gray-900"
+            className="block mb-2 text-sm font-medium "
           >
             Ingredients
           </label>
@@ -102,42 +97,35 @@ export function AddProductForm({ toggleAddProduct }: AddProductProps) {
             value={formState.ingredients}
             onChange={handleChange}
             rows={4}
-            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
           ></textarea>
         </div>
         <div className="flex items-start mb-6">
           <div className="flex items-center h-5">
             <input
+              className="bordered"
               id="vegan"
               name="vegan"
               type="checkbox"
               checked={formState.vegan}
               onChange={handleChange}
-              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
             />
           </div>
-          <label
-            htmlFor="vegan"
-            className="ms-2 text-sm font-medium text-gray-900"
-          >
+          <label htmlFor="vegan" className="ms-2 text-sm font-medium ">
             Suitable for vegans
           </label>
         </div>
         <div className="flex gap-4">
           <div className="flex-grow">
-            <label
-              htmlFor="weight"
-              className="block mb-2 text-sm font-medium text-gray-900"
-            >
+            <label htmlFor="weight" className="block mb-2 text-sm font-medium ">
               Weight in grams
             </label>
             <input
+              className="bordered"
               type="number"
               id="weight"
               name="weight"
               value={formState.weight}
               onChange={handleChange}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               required
             />
           </div>
@@ -145,52 +133,46 @@ export function AddProductForm({ toggleAddProduct }: AddProductProps) {
           <div className="flex-grow">
             <label
               htmlFor="calories"
-              className="block mb-2 text-sm font-medium text-gray-900"
+              className="block mb-2 text-sm font-medium "
             >
               Calories
             </label>
             <input
+              className="bordered"
               type="number"
               id="calories"
               name="calories"
               value={formState.calories}
               onChange={handleChange}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               required
             />
           </div>
         </div>
         <div>
-          <label
-            htmlFor="price"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
+          <label htmlFor="price" className="block mb-2 text-sm font-medium">
             Price
           </label>
           <input
+            className="bordered"
             type="number"
             id="price"
             name="price"
             value={formState.price}
             onChange={handleChange}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             required
           />
         </div>
         <div>
-          <label
-            htmlFor="imageUrl"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
+          <label htmlFor="imageUrl" className="block mb-2 text-sm font-medium ">
             Image URL
           </label>
           <input
+            className="bordered"
             type="text"
             id="imageUrl"
             name="imageUrl"
             value={formState.imageUrl}
             onChange={handleChange}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             required
           />
         </div>
@@ -198,7 +180,7 @@ export function AddProductForm({ toggleAddProduct }: AddProductProps) {
       <div className="flex items-center gap-2 pt-6 border-t border-gray-300">
         <button
           type="submit"
-          className="w-full flex justify-center items-center gap-2 bg-dark text-nowrap text-white py-2 px-4 rounded-lg"
+          className="w-full flex justify-center items-center gap-2 bg-darker text-nowrap text-white py-2 px-4 rounded-lg"
         >
           <MaterialSymbol icon={"send"} size={24} fill color="#fff" />
           <span>Add product to menu</span>

@@ -1,12 +1,20 @@
 import { MaterialSymbol } from "react-material-symbols";
 import profile from "../../assets/images/profile.jpg";
-import logo from "../../../public/logo.png";
+import logoDark from "../../../public/logo-white.png"; // Assuming this is the light version
+import logoLight from "../../../public/logo.png"; // Assuming this is the dark version
 import NavList from "./component.tsx/NavList";
+import { useSelector } from "react-redux"; // Import useSelector
+import { RootState } from "../../redux/store"; // Import RootState
 
 export const Aside = () => {
+  // Access the current theme from the Redux store
+  const theme = useSelector((state: RootState) => state.theme.theme);
+
+  const logo = theme === "dark" ? logoDark : logoLight;
+
   return (
     <aside>
-      <div className="flex flex-col flex-grow  gap-12">
+      <div className="flex flex-col flex-grow gap-12">
         <img src={logo} alt="logo" className="max-w-40" />
 
         <NavList />
@@ -21,7 +29,7 @@ export const Aside = () => {
           </button>
         </div>
       </div>
-      <div className="flex items-center gap-2 pt-6 border-t  border-gray-300 ">
+      <div className="flex items-center gap-2 pt-6 border-t border-gray-300">
         <img src={profile} alt="profile" className="w-10 rounded-full" />
 
         <span className="flex-grow ">Farzad Jambor</span>

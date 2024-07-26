@@ -1,13 +1,18 @@
 import { MaterialSymbol } from "react-material-symbols";
 import type { Product } from "../../../types/product";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 interface ProductCardProps {
   product: Product;
 }
 
 export const ProductCards: React.FC<ProductCardProps> = ({ product }) => {
+  const theme = useSelector((state: RootState) => state.theme.theme);
+
+  const iconColor = theme === "dark" ? "#22c55e" : "#313131";
   return (
-    <div className="relative min-w-38 flex flex-col items-center justify-center rounded-lg px-4 bg-white text-center">
+    <div className="card  ">
       <div className="absolute right-4 top-4">
         {product.vegan && (
           <MaterialSymbol size={20} icon="eco" fill color="#57b66c" />
@@ -28,10 +33,20 @@ export const ProductCards: React.FC<ProductCardProps> = ({ product }) => {
           <span>{product.price}</span>
           <div className="flex gap-2">
             <button className="aspect-square p-2 border border-gray-400 rounded-lg">
-              <MaterialSymbol icon="settings" fill color="#000" size={24} />
+              <MaterialSymbol
+                icon="settings"
+                fill
+                color={iconColor}
+                size={24}
+              />
             </button>
             <button className="aspect-square p-2 border border-gray-400 rounded-lg">
-              <MaterialSymbol icon="visibility" fill color="#000" size={24} />
+              <MaterialSymbol
+                icon="visibility"
+                fill
+                color={iconColor}
+                size={24}
+              />
             </button>
           </div>
         </div>

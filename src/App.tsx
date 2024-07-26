@@ -33,19 +33,22 @@ function App() {
     dispatch(toggleTheme());
   };
 
+  const iconColor = theme === "dark" ? "#fff" : "#313131";
+  const icon = theme === "dark" ? "dark_mode" : "light_mode";
+
   return (
     <div className={theme}>
       <Aside />
       <main>
         <SearchBar />
 
-        <div className="w-full flex justify-between items-center rounded-xl ps-12 pe-8 bg-white ">
+        <header>
           <FilterList filter={filter} setFilter={setFilter} />
 
           <button onClick={handleThemeToggle}>
-            Toggle to {theme === "light" ? "Dark" : "Light"} Theme
+            <MaterialSymbol icon={icon} color={iconColor} size={36} fill />
           </button>
-        </div>
+        </header>
 
         <ProductList
           key={productListKey}
