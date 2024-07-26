@@ -3,8 +3,8 @@ import { MaterialSymbol, SymbolCodepoints } from "react-material-symbols";
 interface NavListItemProps {
   icon?: SymbolCodepoints; // Expect an icon component as a prop
   label: string; // Expect a string for the label
-  onClick: () => void; // Expect a function for click handling
-  isActive: boolean; // Expect a boolean for active state styling
+  onClick?: () => void; // Expect a function for click handling
+  isActive?: boolean; // Expect a boolean for active state styling
 }
 
 const ListItem: React.FC<NavListItemProps> = ({

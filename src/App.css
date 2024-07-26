@@ -1,16 +1,15 @@
 @import "material-symbols";
 
-.fill {
-  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+div:has(div) {
+  @apply flex;
 }
 main {
-  @apply flex flex-col flex-grow p-8 gap-8 overflow-auto bg-light;
+  @apply flex flex-col flex-grow p-8 gap-8 overflow-auto bg-light text-dark transition-all duration-300;
+}
+.dark main {
+  @apply bg-dark text-white;
 }
 
 aside {
   @apply relative z-50 min-w-fit flex flex-col p-6 gap-6 bg-white;
-}
-
-div:has(div) {
-  @apply flex;
 }

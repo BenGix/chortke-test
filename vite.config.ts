@@ -6,9 +6,5 @@ export default defineConfig({
   server: {
     open: true,
   },
-  build: {
-    rollupOptions: {
-      input: "/mockServiceWorker.js", // Ensure this is correctly set
-    },
-  },
+  build: {},
 });
