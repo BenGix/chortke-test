@@ -2,7 +2,10 @@ import { MaterialSymbol } from "react-material-symbols";
 
 export const ProductCards = () => {
   return (
-    <div className="max-w-80 min-w-38 flex flex-col  items-center justify-center rounded-lg px-4 bg-white text-center">
+    <div className="relative max-w-80 min-w-38 flex flex-col  items-center justify-center rounded-lg px-4 bg-white text-center">
+      <div className=" absolute right-4 top-4">
+        <MaterialSymbol size={20} icon="eco" fill color="#57b66c" />
+      </div>
       <img
         src="https://www.burgerandsauce.com/wp-content/uploads/2021/02/burger-and-suace-chicken-burger-3000px-2.1-1024x1024.png"
         className="max-w-36 -mt-8"
