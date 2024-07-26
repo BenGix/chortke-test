@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { MaterialSymbol } from "react-material-symbols";
 import { useAddProduct } from "../../hooks/useAddProduct";
 
+// Define the initial form state including the imageUrl
 const initialFormState = {
   name: "",
   ingredients: "",
@@ -9,16 +10,19 @@ const initialFormState = {
   calories: "",
   price: "",
   vegan: false,
+  imageUrl: "", // Added imageUrl to the state
 };
 
 type AddProductProps = {
   toggleAddProduct: () => void;
 };
+
 export function AddProductForm({ toggleAddProduct }: AddProductProps) {
+  // Initialize state with the form fields including imageUrl
   const [formState, setFormState] = useState(initialFormState);
   const { handleAddProduct, error } = useAddProduct();
 
-  // Handle input changes
+  // Handle input changes including imageUrl
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -34,12 +38,13 @@ export function AddProductForm({ toggleAddProduct }: AddProductProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate form data (basic validation)
+    // Validate form data
     if (
       !formState.name ||
       !formState.weight ||
       !formState.calories ||
-      !formState.price
+      !formState.price ||
+      !formState.imageUrl // Check if imageUrl is provided
     ) {
       alert("Please fill in all required fields.");
       return;
@@ -51,16 +56,16 @@ export function AddProductForm({ toggleAddProduct }: AddProductProps) {
         description: formState.ingredients,
         weight: formState.weight,
         price: formState.price,
-        imageUrl: "./SAG",
+        imageUrl: formState.imageUrl, // Use formState.imageUrl
         vegan: formState.vegan,
       });
       toggleAddProduct();
       setFormState(initialFormState); // Reset form
     } catch (err) {
+      console.error(err);
       toggleAddProduct();
     }
   };
-
   return (
     <form
       className="h-full w-full flex flex-col justify-between"
@@ -81,11 +86,9 @@ export function AddProductForm({ toggleAddProduct }: AddProductProps) {
             value={formState.name}
             onChange={handleChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="Product Name"
             required
           />
         </div>
-
         <div>
           <label
             htmlFor="ingredients"
@@ -102,7 +105,6 @@ export function AddProductForm({ toggleAddProduct }: AddProductProps) {
             className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
           ></textarea>
         </div>
-
         <div className="flex items-start mb-6">
           <div className="flex items-center h-5">
             <input
@@ -121,7 +123,6 @@ export function AddProductForm({ toggleAddProduct }: AddProductProps) {
             Suitable for vegans
           </label>
         </div>
-
         <div className="flex gap-4">
           <div className="flex-grow">
             <label
@@ -137,7 +138,6 @@ export function AddProductForm({ toggleAddProduct }: AddProductProps) {
               value={formState.weight}
               onChange={handleChange}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="Weight in grams"
               required
             />
           </div>
@@ -156,12 +156,10 @@ export function AddProductForm({ toggleAddProduct }: AddProductProps) {
               value={formState.calories}
               onChange={handleChange}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="Calories"
               required
             />
           </div>
         </div>
-
         <div>
           <label
             htmlFor="price"
@@ -176,7 +174,23 @@ export function AddProductForm({ toggleAddProduct }: AddProductProps) {
             value={formState.price}
             onChange={handleChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="Price"
+            required
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="imageUrl"
+            className="block mb-2 text-sm font-medium text-gray-900"
+          >
+            Image URL
+          </label>
+          <input
+            type="text"
+            id="imageUrl"
+            name="imageUrl"
+            value={formState.imageUrl}
+            onChange={handleChange}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             required
           />
         </div>

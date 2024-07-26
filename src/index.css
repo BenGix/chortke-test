@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 body {
-  @apply min-h-screen grid ; 
+  @apply min-h-screen grid;
 }
 #root {
-  @apply w-screen h-screen flex ;
+  @apply w-screen h-screen flex;
 }
