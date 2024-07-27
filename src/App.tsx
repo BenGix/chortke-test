@@ -1,3 +1,5 @@
+// App.tsx
+
 import "./App.css";
 import "react-material-symbols/rounded";
 import { useState } from "react";
@@ -17,14 +19,13 @@ function App() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [filter, setFilter] = useState<"all" | "vegan" | "non-vegan">("all");
   const [searchTerm, setSearchTerm] = useState(""); // New state for search term
+  const [productListKey, setProductListKey] = useState(
+    `collapsed-${Date.now()}`
+  ); // Initialize with a key
 
   const toggleAddProduct = () => {
     setIsExpanded((prev) => !prev);
   };
-
-  const productListKey = isExpanded
-    ? `expanded-${Date.now()}`
-    : `collapsed-${Date.now()}`;
 
   const dispatch = useDispatch();
   const theme = useSelector((state: RootState) => state.theme.theme);
@@ -40,6 +41,10 @@ function App() {
 
   const iconColor = theme === "dark" ? "#fff" : "#313131";
   const icon = theme === "dark" ? "dark_mode" : "light_mode";
+
+  const handleProductSubmit = () => {
+    setProductListKey(`list-${Date.now()}`);
+  };
 
   return (
     <div className={theme}>
@@ -81,7 +86,10 @@ function App() {
             <MaterialSymbol icon={"close"} size={24} color="#000" />
           </button>
         </div>
-        <AddProductForm toggleAddProduct={toggleAddProduct} />
+        <AddProductForm
+          toggleAddProduct={toggleAddProduct}
+          onProductSubmit={handleProductSubmit}
+        />
       </aside>
     </div>
   );

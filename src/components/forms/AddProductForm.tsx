@@ -1,3 +1,5 @@
+// AddProductForm.tsx
+
 import React, { useState } from "react";
 import { MaterialSymbol } from "react-material-symbols";
 import { useAddProduct } from "../../hooks/useAddProduct";
@@ -15,9 +17,13 @@ const initialFormState = {
 
 type AddProductProps = {
   toggleAddProduct: () => void;
+  onProductSubmit: () => void; // Add this prop
 };
 
-export function AddProductForm({ toggleAddProduct }: AddProductProps) {
+export function AddProductForm({
+  toggleAddProduct,
+  onProductSubmit,
+}: AddProductProps) {
   const [formState, setFormState] = useState(initialFormState);
   const { handleAddProduct, error } = useAddProduct();
 
@@ -57,6 +63,7 @@ export function AddProductForm({ toggleAddProduct }: AddProductProps) {
         imageUrl: formState.imageUrl, // Use formState.imageUrl
         vegan: formState.vegan,
       });
+      onProductSubmit(); // Notify parent component to update the productListKey
       toggleAddProduct();
       setFormState(initialFormState); // Reset form
     } catch (err) {
