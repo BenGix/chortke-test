@@ -1,5 +1,4 @@
 // FilterList.tsx
-import React from "react";
 import ListItem from "../utilities/ListItem";
 
 type FilterListProps = {

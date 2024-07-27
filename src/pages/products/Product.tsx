@@ -1,5 +1,5 @@
 // components/Product.tsx
-import React from "react";
+import React, { useState } from "react";
 import { ProductList } from "../../components/ProductList";
 import { AddProductForm } from "../../components/forms/AddProductForm";
 import { EditProductForm } from "../../components/forms/EditProductForm";
@@ -14,19 +14,17 @@ import { SearchBar } from "../../components/utilities/SearchBar";
 import { FilterList } from "../../components/filters/FilterList";
 
 const Product: React.FC = () => {
-  const [isExpanded, setIsExpanded] = React.useState(false);
-  const [isEditMode, setIsEditMode] = React.useState(false);
-  const [isViewMode, setIsViewMode] = React.useState(false);
-  const [filter, setFilter] = React.useState<"all" | "vegan" | "non-vegan">(
-    "all"
-  );
-  const [searchTerm, setSearchTerm] = React.useState("");
-  const [productListKey, setProductListKey] = React.useState(
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [isViewMode, setIsViewMode] = useState(false);
+  const [filter, setFilter] = useState<"all" | "vegan" | "non-vegan">("all");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [productListKey, setProductListKey] = useState(
     `collapsed-${Date.now()}`
   );
-  const [selectedProductId, setSelectedProductId] = React.useState<
-    number | null
-  >(null);
+  const [selectedProductId, setSelectedProductId] = useState<number | null>(
+    null
+  );
 
   const dispatch = useDispatch();
   const theme = useSelector((state: RootState) => state.theme.theme);
@@ -124,20 +122,17 @@ const Product: React.FC = () => {
             onProductSubmit={handleProductSubmit}
             productId={selectedProductId}
           />
-
         ) : isViewMode ? (
           <ViewProduct
             productId={selectedProductId}
             toggleViewProduct={toggleAddProduct}
           />
-          
         ) : (
           <AddProductForm
             toggleAddProduct={toggleAddProduct}
             onProductSubmit={handleProductSubmit}
           />
         )}
-        
       </aside>
       {isExpanded && <Overlay toggleAddProduct={toggleAddProduct} />}
     </>

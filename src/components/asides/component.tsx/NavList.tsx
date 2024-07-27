@@ -1,5 +1,3 @@
-// components/asides/component.tsx/NavList.tsx
-import React from "react";
 import ListItem from "../../utilities/ListItem";
 import { NavItem } from "../../../types/navItem";
 

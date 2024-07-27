@@ -1,4 +1,3 @@
-import React from "react";
 import { useProducts } from "../hooks/useFetchProducts";
 import { MaterialSymbol } from "react-material-symbols";
 import { ProductCards } from "./utilities/cards/ProductCards";
