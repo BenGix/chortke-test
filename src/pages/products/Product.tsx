@@ -71,6 +71,7 @@ const Product: React.FC = () => {
   return (
     <>
       <SearchBar setSearchTerm={setSearchTerm} />
+
       <header>
         <FilterList filter={filter} setFilter={setFilter} />
         <div className="flex gap-8 items-center">
@@ -82,6 +83,7 @@ const Product: React.FC = () => {
           </button>
         </div>
       </header>
+
       <ProductList
         key={productListKey}
         toggleAddProduct={toggleAddProduct}
@@ -90,6 +92,7 @@ const Product: React.FC = () => {
         onSelectProductToEdit={handleSelectProductToEdit}
         onSelectProductToView={handleSelectProductToView}
       />
+
       <aside
         id="default-sidebar"
         className={`fixed shadow-main flex flex-col items-start p-4 z-[100] top-0 right-0 w-1/3 h-screen bg-white transition-transform duration-500 ease-in-out transform ${
@@ -114,23 +117,27 @@ const Product: React.FC = () => {
             <MaterialSymbol icon={"close"} size={24} color="#000" />
           </button>
         </div>
+
         {isEditMode ? (
           <EditProductForm
             toggleEditProduct={toggleAddProduct}
             onProductSubmit={handleProductSubmit}
             productId={selectedProductId}
           />
+
         ) : isViewMode ? (
           <ViewProduct
             productId={selectedProductId}
             toggleViewProduct={toggleAddProduct}
           />
+          
         ) : (
           <AddProductForm
             toggleAddProduct={toggleAddProduct}
             onProductSubmit={handleProductSubmit}
           />
         )}
+        
       </aside>
       {isExpanded && <Overlay toggleAddProduct={toggleAddProduct} />}
     </>
