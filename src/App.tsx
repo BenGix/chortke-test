@@ -9,7 +9,8 @@ import { FilterList } from "./components/filters/FilterList";
 import { Overlay } from "./components/utilities/DarkOverlay";
 import { ProductList } from "./components/ProductList";
 import { AddProductForm } from "./components/forms/AddProductForm";
-import { EditProductForm } from "./components/forms/EditProductForm"; // Import the edit form
+import { EditProductForm } from "./components/forms/EditProductForm";
+import { ViewProduct } from "./components/forms/ViewProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "./redux/themeSlice";
 import { RootState } from "./redux/store";
@@ -17,18 +18,31 @@ import { toggleCurrency } from "./redux/currencySlice";
 
 function App() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isEditMode, setIsEditMode] = useState(false); // State to manage edit mode
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [isViewMode, setIsViewMode] = useState(false);
   const [filter, setFilter] = useState<"all" | "vegan" | "non-vegan">("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [productListKey, setProductListKey] = useState(
     `collapsed-${Date.now()}`
   );
+
   const [selectedProductId, setSelectedProductId] = useState<number | null>(
     null
-  ); // State to store selected product ID
+  );
 
   const toggleAddProduct = () => {
-    setIsExpanded((prev) => !prev);
+    setIsExpanded((prev) => {
+      const newExpandedState = !prev;
+
+      // Reset modes if closing
+      if (!newExpandedState) {
+        setIsEditMode(false);
+        setIsViewMode(false);
+        setSelectedProductId(null);
+      }
+
+      return newExpandedState;
+    });
   };
 
   const dispatch = useDispatch();
@@ -50,12 +64,21 @@ function App() {
     setProductListKey(`list-${Date.now()}`);
     setSelectedProductId(null); // Reset selected product ID
     setIsEditMode(false); // Exit edit mode
+    setIsViewMode(false); // Exit view mode
   };
 
   const handleSelectProductToEdit = (productId: number) => {
     setSelectedProductId(productId);
     setIsExpanded(true);
     setIsEditMode(true);
+    setIsViewMode(false);
+  };
+
+  const handleSelectProductToView = (productId: number) => {
+    setSelectedProductId(productId);
+    setIsExpanded(true);
+    setIsViewMode(true);
+    setIsEditMode(false);
   };
 
   return (
@@ -65,13 +88,12 @@ function App() {
         <SearchBar setSearchTerm={setSearchTerm} />
         <header>
           <FilterList filter={filter} setFilter={setFilter} />
-          <div className="flex gap-4 items-center">
-            <button onClick={handleThemeToggle}>
-              <MaterialSymbol icon={icon} color={iconColor} size={36} fill />
-            </button>
-
+          <div className="flex gap-8 items-center">
             <button onClick={handleCurrencyToggle} className="ml-2">
               {currency === "USD" ? "تومان" : "$"}
+            </button>
+            <button onClick={handleThemeToggle}>
+              <MaterialSymbol icon={icon} color={iconColor} size={36} fill />
             </button>
           </div>
         </header>
@@ -81,7 +103,8 @@ function App() {
           toggleAddProduct={toggleAddProduct}
           filter={filter}
           searchTerm={searchTerm}
-          onSelectProductToEdit={handleSelectProductToEdit} // Pass the handler
+          onSelectProductToEdit={handleSelectProductToEdit}
+          onSelectProductToView={handleSelectProductToView}
         />
       </main>
 
@@ -94,7 +117,13 @@ function App() {
         }`}
       >
         <div className="w-full flex justify-between">
-          <h2>{isEditMode ? "Edit product" : "Add new product"}</h2>
+          <h2>
+            {isEditMode
+              ? "Edit product"
+              : isViewMode
+              ? "View product"
+              : "Add new product"}
+          </h2>
 
           <button onClick={toggleAddProduct}>
             <MaterialSymbol icon={"close"} size={24} color="#000" />
@@ -105,6 +134,11 @@ function App() {
             toggleEditProduct={toggleAddProduct}
             onProductSubmit={handleProductSubmit}
             productId={selectedProductId} // Pass selected product ID
+          />
+        ) : isViewMode ? (
+          <ViewProduct
+            productId={selectedProductId} // Pass selected product ID
+            toggleViewProduct={toggleAddProduct}
           />
         ) : (
           <AddProductForm

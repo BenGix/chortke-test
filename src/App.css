@@ -37,13 +37,20 @@ header {
 }
 
 input {
-  @apply text-sm rounded-lg  block w-full p-4;
+  @apply text-sm rounded-lg  block w-full p-4 disabled:text-gray-300 bg-gray-400;
 
   &.bordered {
     @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2;
+
+    &:disabled {
+      @apply text-gray-500 bg-gray-100;
+    }
   }
 }
 
 textarea {
   @apply block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300;
+  &:disabled {
+    @apply text-gray-500 bg-gray-100;
+  }
 }

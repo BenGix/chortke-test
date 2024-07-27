@@ -1,5 +1,3 @@
-// components/ProductList.tsx
-
 import React from "react";
 import { useProducts } from "../hooks/useFetchProducts";
 import { MaterialSymbol } from "react-material-symbols";
@@ -7,14 +5,16 @@ import { ProductCards } from "./utilities/cards/ProductCards";
 
 type ProductListProps = {
   toggleAddProduct: () => void;
-  onSelectProductToEdit: (productId: number) => void; // Add this prop
+  onSelectProductToEdit: (productId: number) => void;
+  onSelectProductToView: (productId: number) => void;
   filter: "all" | "vegan" | "non-vegan";
   searchTerm: string;
 };
 
 export const ProductList: React.FC<ProductListProps> = ({
   toggleAddProduct,
-  onSelectProductToEdit, // Destructure this prop
+  onSelectProductToEdit,
+  onSelectProductToView,
   filter,
   searchTerm,
 }) => {
@@ -38,7 +38,8 @@ export const ProductList: React.FC<ProductListProps> = ({
           <ProductCards
             key={product.id}
             product={product}
-            onSelectProductToEdit={onSelectProductToEdit} // Pass the function
+            onSelectProductToEdit={onSelectProductToEdit}
+            onSelectProductToView={onSelectProductToView} // Pass correct function
           />
         ))}
       <button

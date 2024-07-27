@@ -6,11 +6,13 @@ import { RootState } from "../../../redux/store";
 type ProductCardProps = {
   product: Product;
   onSelectProductToEdit: (productId: number) => void;
+  onSelectProductToView: (productId: number) => void;
 };
 
 export const ProductCards: React.FC<ProductCardProps> = ({
   product,
   onSelectProductToEdit,
+  onSelectProductToView,
 }) => {
   const theme = useSelector((state: RootState) => state.theme.theme);
   const currency = useSelector((state: RootState) => state.currency.currency);
@@ -55,7 +57,10 @@ export const ProductCards: React.FC<ProductCardProps> = ({
                 size={24}
               />
             </button>
-            <button className="aspect-square p-2 border border-gray-400 rounded-lg">
+            <button
+              className="aspect-square p-2 border border-gray-400 rounded-lg"
+              onClick={() => onSelectProductToView(product.id)}
+            >
               <MaterialSymbol
                 icon="visibility"
                 fill
