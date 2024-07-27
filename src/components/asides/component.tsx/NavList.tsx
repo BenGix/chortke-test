@@ -1,19 +1,25 @@
+// components/asides/component.tsx/NavList.tsx
+import React from "react";
+import ListItem from "../../utilities/ListItem";
 import { NavItem } from "../../../types/navItem";
-import NavListItem from "../../utilities/ListItem";
 
 export const NavList: React.FC = () => {
   const navItems: NavItem[] = [
-    { icon: "grid_view", label: "Dashboard" },
-    { icon: "shopping_bag", label: "Order" },
-    { icon: "lunch_dining", label: "Product" },
-    { icon: "location_on", label: "Restaurant" },
-    { icon: "person", label: "Drivers" },
+    { icon: "lunch_dining", label: "Product", route: "/" },
+    { icon: "shopping_bag", label: "Order", route: "/order" },
+    { icon: "location_on", label: "Restaurant", route: "/restaurant" },
+    { icon: "person", label: "Drivers", route: "/drivers" },
   ];
 
   return (
     <ul className="flex-grow flex flex-col">
       {navItems.map((item, index) => (
-        <NavListItem key={index} icon={item.icon} label={item.label} />
+        <ListItem
+          key={index}
+          icon={item.icon}
+          label={item.label}
+          to={item.route}
+        />
       ))}
     </ul>
   );

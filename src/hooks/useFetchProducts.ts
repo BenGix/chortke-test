@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchProducts } from "../services/productService";
-import type { Product } from "../types/product"; // Assuming this import is correct
+import type { Product } from "../types/product";
 
 export const useProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -8,7 +8,6 @@ export const useProducts = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Function to introduce a delay
     const delay = (ms: number) =>
       new Promise((resolve) => setTimeout(resolve, ms));
 
