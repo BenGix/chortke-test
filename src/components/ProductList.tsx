@@ -1,16 +1,20 @@
+// components/ProductList.tsx
+
 import React from "react";
 import { useProducts } from "../hooks/useFetchProducts";
-import { ProductCards } from "./utilities/cards/ProductCards";
 import { MaterialSymbol } from "react-material-symbols";
+import { ProductCards } from "./utilities/cards/ProductCards";
 
 type ProductListProps = {
   toggleAddProduct: () => void;
+  onSelectProductToEdit: (productId: number) => void; // Add this prop
   filter: "all" | "vegan" | "non-vegan";
-  searchTerm: string; // Add searchTerm prop
+  searchTerm: string;
 };
 
 export const ProductList: React.FC<ProductListProps> = ({
   toggleAddProduct,
+  onSelectProductToEdit, // Destructure this prop
   filter,
   searchTerm,
 }) => {
@@ -22,7 +26,7 @@ export const ProductList: React.FC<ProductListProps> = ({
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     const matchesSearch =
       product.name.toLowerCase().includes(lowerCaseSearchTerm) ||
-      product.description.toLowerCase().includes(lowerCaseSearchTerm); // Check name and description
+      product.description.toLowerCase().includes(lowerCaseSearchTerm);
     return matchesFilter && matchesSearch;
   });
 
@@ -31,7 +35,11 @@ export const ProductList: React.FC<ProductListProps> = ({
       {!error &&
         !loading &&
         filteredProducts.map((product) => (
-          <ProductCards key={product.id} product={product} />
+          <ProductCards
+            key={product.id}
+            product={product}
+            onSelectProductToEdit={onSelectProductToEdit} // Pass the function
+          />
         ))}
       <button
         data-drawer-target="add-sidebar"

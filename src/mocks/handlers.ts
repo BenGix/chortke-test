@@ -21,4 +21,43 @@ export const handlers = [
     console.log(productData);
     return HttpResponse.json(productToAdd, { status: 201 });
   }),
+
+  http.put("/api/products/:id", async ({ request, params }) => {
+    const updatedProductData = (await request.json()) as Partial<Product>;
+    const productId = Number(params.id);
+
+    // Find the product by ID
+    const productIndex = productData.findIndex((p) => p.id === productId);
+    if (productIndex === -1) {
+      return HttpResponse.json({ error: "Product not found" }, { status: 404 });
+    }
+
+    const updatedProduct = {
+      ...productData[productIndex],
+      ...updatedProductData,
+    };
+    productData[productIndex] = updatedProduct;
+
+    console.log(updatedProduct);
+    return HttpResponse.json(updatedProduct);
+  }),
+
+  http.patch("/api/products/:id", async ({ request, params }) => {
+    const updatedFields = (await request.json()) as Partial<Product>;
+    const productId = Number(params.id);
+
+    // Find the product by ID
+    const productIndex = productData.findIndex((p) => p.id === productId);
+    if (productIndex === -1) {
+      return HttpResponse.json({ error: "Product not found" }, { status: 404 });
+    }
+
+    // Update the product
+    const updatedProduct = { ...productData[productIndex], ...updatedFields };
+    productData[productIndex] = updatedProduct;
+
+    console.log(updatedProduct);
+    return HttpResponse.json(updatedProduct);
+  }),
+
 ];

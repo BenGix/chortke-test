@@ -3,11 +3,15 @@ import type { Product } from "../../../types/product";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 
-interface ProductCardProps {
+type ProductCardProps = {
   product: Product;
-}
+  onSelectProductToEdit: (productId: number) => void;
+};
 
-export const ProductCards: React.FC<ProductCardProps> = ({ product }) => {
+export const ProductCards: React.FC<ProductCardProps> = ({
+  product,
+  onSelectProductToEdit,
+}) => {
   const theme = useSelector((state: RootState) => state.theme.theme);
   const currency = useSelector((state: RootState) => state.currency.currency);
 
@@ -40,7 +44,10 @@ export const ProductCards: React.FC<ProductCardProps> = ({ product }) => {
             <span>{product.price}</span>
           </p>
           <div className="flex gap-2">
-            <button className="aspect-square p-2 border border-gray-400 rounded-lg">
+            <button
+              onClick={() => onSelectProductToEdit(product.id)}
+              className="aspect-square p-2 border border-gray-400 rounded-lg"
+            >
               <MaterialSymbol
                 icon="settings"
                 fill

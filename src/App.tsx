@@ -1,5 +1,4 @@
 // App.tsx
-
 import "./App.css";
 import "react-material-symbols/rounded";
 import { useState } from "react";
@@ -10,18 +9,23 @@ import { FilterList } from "./components/filters/FilterList";
 import { Overlay } from "./components/utilities/DarkOverlay";
 import { ProductList } from "./components/ProductList";
 import { AddProductForm } from "./components/forms/AddProductForm";
+import { EditProductForm } from "./components/forms/EditProductForm"; // Import the edit form
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "./redux/themeSlice";
-import { RootState } from "./redux/store"; // Import RootState
-import { toggleCurrency } from "./redux/currencySlice"; // Import toggleCurrency action
+import { RootState } from "./redux/store";
+import { toggleCurrency } from "./redux/currencySlice";
 
 function App() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false); // State to manage edit mode
   const [filter, setFilter] = useState<"all" | "vegan" | "non-vegan">("all");
-  const [searchTerm, setSearchTerm] = useState(""); // New state for search term
+  const [searchTerm, setSearchTerm] = useState("");
   const [productListKey, setProductListKey] = useState(
     `collapsed-${Date.now()}`
-  ); // Initialize with a key
+  );
+  const [selectedProductId, setSelectedProductId] = useState<number | null>(
+    null
+  ); // State to store selected product ID
 
   const toggleAddProduct = () => {
     setIsExpanded((prev) => !prev);
@@ -29,7 +33,7 @@ function App() {
 
   const dispatch = useDispatch();
   const theme = useSelector((state: RootState) => state.theme.theme);
-  const currency = useSelector((state: RootState) => state.currency.currency); // Get current currency from Redux
+  const currency = useSelector((state: RootState) => state.currency.currency);
 
   const handleThemeToggle = () => {
     dispatch(toggleTheme());
@@ -44,13 +48,21 @@ function App() {
 
   const handleProductSubmit = () => {
     setProductListKey(`list-${Date.now()}`);
+    setSelectedProductId(null); // Reset selected product ID
+    setIsEditMode(false); // Exit edit mode
+  };
+
+  const handleSelectProductToEdit = (productId: number) => {
+    setSelectedProductId(productId);
+    setIsExpanded(true);
+    setIsEditMode(true);
   };
 
   return (
     <div className={theme}>
       <Aside />
       <main>
-        <SearchBar setSearchTerm={setSearchTerm} />{" "}
+        <SearchBar setSearchTerm={setSearchTerm} />
         <header>
           <FilterList filter={filter} setFilter={setFilter} />
           <div className="flex gap-4 items-center">
@@ -63,11 +75,13 @@ function App() {
             </button>
           </div>
         </header>
+
         <ProductList
           key={productListKey}
           toggleAddProduct={toggleAddProduct}
           filter={filter}
           searchTerm={searchTerm}
+          onSelectProductToEdit={handleSelectProductToEdit} // Pass the handler
         />
       </main>
 
@@ -80,16 +94,24 @@ function App() {
         }`}
       >
         <div className="w-full flex justify-between">
-          <h2>Add new product</h2>
+          <h2>{isEditMode ? "Edit product" : "Add new product"}</h2>
 
           <button onClick={toggleAddProduct}>
             <MaterialSymbol icon={"close"} size={24} color="#000" />
           </button>
         </div>
-        <AddProductForm
-          toggleAddProduct={toggleAddProduct}
-          onProductSubmit={handleProductSubmit}
-        />
+        {isEditMode ? (
+          <EditProductForm
+            toggleEditProduct={toggleAddProduct}
+            onProductSubmit={handleProductSubmit}
+            productId={selectedProductId} // Pass selected product ID
+          />
+        ) : (
+          <AddProductForm
+            toggleAddProduct={toggleAddProduct}
+            onProductSubmit={handleProductSubmit}
+          />
+        )}
       </aside>
     </div>
   );

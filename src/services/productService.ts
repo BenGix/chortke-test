@@ -31,3 +31,11 @@ export const addProduct = async (
     throw error;
   }
 };
+
+export async function updateProduct(
+  id: number,
+  updatedFields: Partial<Product>
+): Promise<Product> {
+  const response = await axios.put(`/api/products/${id}`, updatedFields);
+  return response.data;
+}

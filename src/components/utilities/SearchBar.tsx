@@ -15,9 +15,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setSearchTerm }) => {
       <form className="w-full max-w-xl">
         <label
           htmlFor="default-search"
-          className="mb-2 text-sm font-medium text-gray-900 sr-only"
+          className="mb-2 text-sm font-medium text-gray-500 sr-only"
         ></label>
-        <div className="relative flex items-center text-dark border-b focus:border-b-2 focus:border-green-300">
+        <div className="relative flex items-center text-gray-500 border-b focus:border-b-2 focus:border-green-300">
           <MaterialSymbol icon="search" color="#495955" size={24} />
           <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none"></div>
           <input
