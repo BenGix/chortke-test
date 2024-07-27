@@ -14,7 +14,7 @@ export const useProducts = () => {
     const loadProducts = async () => {
       try {
         setLoading(true);
-        await delay(300); // Delay for 1 second
+        await delay(500); // Delay for 1 second
         const productsData = await fetchProducts();
         setProducts(productsData);
       } catch (error) {
