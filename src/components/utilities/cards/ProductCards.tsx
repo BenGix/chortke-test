@@ -9,10 +9,14 @@ interface ProductCardProps {
 
 export const ProductCards: React.FC<ProductCardProps> = ({ product }) => {
   const theme = useSelector((state: RootState) => state.theme.theme);
+  const currency = useSelector((state: RootState) => state.currency.currency);
 
   const iconColor = theme === "dark" ? "#22c55e" : "#313131";
+
+  const currencySymbol = currency === "USD" ? "$" : "تومان";
+
   return (
-    <div className="card  ">
+    <div className="card">
       <div className="absolute right-4 top-4">
         {product.vegan && (
           <MaterialSymbol size={20} icon="eco" fill color="#57b66c" />
@@ -30,7 +34,11 @@ export const ProductCards: React.FC<ProductCardProps> = ({ product }) => {
         <span className="text-sm font-light">{product.weight}g</span>
         <p className="text-pretty">{product.description}</p>
         <div className="w-full flex items-center justify-between">
-          <span>{product.price}</span>
+          <p className="flex gap-2">
+            {" "}
+            <span> {currencySymbol} </span>
+            <span>{product.price}</span>
+          </p>
           <div className="flex gap-2">
             <button className="aspect-square p-2 border border-gray-400 rounded-lg">
               <MaterialSymbol

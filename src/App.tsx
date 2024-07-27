@@ -1,5 +1,3 @@
-// src/App.tsx
-
 import "./App.css";
 import "react-material-symbols/rounded";
 import { useState } from "react";
@@ -13,6 +11,7 @@ import { AddProductForm } from "./components/forms/AddProductForm";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "./redux/themeSlice";
 import { RootState } from "./redux/store"; // Import RootState
+import { toggleCurrency } from "./redux/currencySlice"; // Import toggleCurrency action
 
 function App() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -29,9 +28,14 @@ function App() {
 
   const dispatch = useDispatch();
   const theme = useSelector((state: RootState) => state.theme.theme);
+  const currency = useSelector((state: RootState) => state.currency.currency); // Get current currency from Redux
 
   const handleThemeToggle = () => {
     dispatch(toggleTheme());
+  };
+
+  const handleCurrencyToggle = () => {
+    dispatch(toggleCurrency());
   };
 
   const iconColor = theme === "dark" ? "#fff" : "#313131";
@@ -42,19 +46,23 @@ function App() {
       <Aside />
       <main>
         <SearchBar setSearchTerm={setSearchTerm} />{" "}
-        {/* Pass setSearchTerm prop */}
         <header>
           <FilterList filter={filter} setFilter={setFilter} />
+          <div className="flex gap-4 items-center">
+            <button onClick={handleThemeToggle}>
+              <MaterialSymbol icon={icon} color={iconColor} size={36} fill />
+            </button>
 
-          <button onClick={handleThemeToggle}>
-            <MaterialSymbol icon={icon} color={iconColor} size={36} fill />
-          </button>
+            <button onClick={handleCurrencyToggle} className="ml-2">
+              {currency === "USD" ? "تومان" : "$"}
+            </button>
+          </div>
         </header>
         <ProductList
           key={productListKey}
           toggleAddProduct={toggleAddProduct}
           filter={filter}
-          searchTerm={searchTerm} // Pass searchTerm prop
+          searchTerm={searchTerm}
         />
       </main>
 

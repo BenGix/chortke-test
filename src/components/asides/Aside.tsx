@@ -34,7 +34,7 @@ export const Aside = () => {
 
         <span className="flex-grow ">Farzad Jambor</span>
 
-        <MaterialSymbol icon={"more_vert"} size={28} fill color="#000" />
+        <MaterialSymbol icon={"more_vert"} size={28} fill />
       </div>
     </aside>
   );
