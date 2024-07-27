@@ -1,3 +1,4 @@
+import React from "react";
 import { useProducts } from "../hooks/useFetchProducts";
 import { ProductCards } from "./utilities/cards/ProductCards";
 import { MaterialSymbol } from "react-material-symbols";
@@ -5,15 +6,26 @@ import { MaterialSymbol } from "react-material-symbols";
 type ProductListProps = {
   toggleAddProduct: () => void;
   filter: "all" | "vegan" | "non-vegan";
+  searchTerm: string; // Add searchTerm prop
 };
 
-export const ProductList = ({ toggleAddProduct, filter }: ProductListProps) => {
+export const ProductList: React.FC<ProductListProps> = ({
+  toggleAddProduct,
+  filter,
+  searchTerm,
+}) => {
   const { products, loading, error } = useProducts();
 
   const filteredProducts = products.filter((product) => {
-    if (filter === "all") return true;
-    return filter === "vegan" ? product.vegan : !product.vegan;
+    const matchesFilter =
+      filter === "all" || (filter === "vegan" ? product.vegan : !product.vegan);
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    const matchesSearch =
+      product.name.toLowerCase().includes(lowerCaseSearchTerm) ||
+      product.description.toLowerCase().includes(lowerCaseSearchTerm); // Check name and description
+    return matchesFilter && matchesSearch;
   });
+
   return (
     <div className="grid grid-cols-2 grid-flow-row lg:grid-cols-3 2xl:grid-cols-5 overflow-y-auto px-2 py-8 gap-8">
       {!error &&

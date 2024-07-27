@@ -17,6 +17,7 @@ import { RootState } from "./redux/store"; // Import RootState
 function App() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [filter, setFilter] = useState<"all" | "vegan" | "non-vegan">("all");
+  const [searchTerm, setSearchTerm] = useState(""); // New state for search term
 
   const toggleAddProduct = () => {
     setIsExpanded((prev) => !prev);
@@ -27,7 +28,7 @@ function App() {
     : `collapsed-${Date.now()}`;
 
   const dispatch = useDispatch();
-  const theme = useSelector((state: RootState) => state.theme.theme); // Use RootState here
+  const theme = useSelector((state: RootState) => state.theme.theme);
 
   const handleThemeToggle = () => {
     dispatch(toggleTheme());
@@ -40,8 +41,8 @@ function App() {
     <div className={theme}>
       <Aside />
       <main>
-        <SearchBar />
-
+        <SearchBar setSearchTerm={setSearchTerm} />{" "}
+        {/* Pass setSearchTerm prop */}
         <header>
           <FilterList filter={filter} setFilter={setFilter} />
 
@@ -49,11 +50,11 @@ function App() {
             <MaterialSymbol icon={icon} color={iconColor} size={36} fill />
           </button>
         </header>
-
         <ProductList
           key={productListKey}
           toggleAddProduct={toggleAddProduct}
           filter={filter}
+          searchTerm={searchTerm} // Pass searchTerm prop
         />
       </main>
 

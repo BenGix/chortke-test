@@ -12,7 +12,7 @@
     "id": 2,
     "name": "Hot Dog",
     "weight": "350",
-    "description": "wheat bun, pickles, crispy shrimp, seafood sauce",
+    "description": "green bun, pickles,chicken, musterd sauce",
     "vegan": false,
     "price": "$20",
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Hot_dog_with_mustard.png/1200px-Hot_dog_with_mustard.png"
@@ -21,7 +21,7 @@
     "id": 3,
     "name": "Pizza",
     "weight": "350",
-    "description": "wheat bun, pickles, crispy shrimp, seafood sauce",
+    "description": "corn bun, pickles, crispy meat, tomato sauce",
     "vegan": true,
     "price": "$20",
     "imageUrl": "https://www.datocms-assets.com/94903/1692886360-margherita.png?auto=compress%2Cformat&w=720"
